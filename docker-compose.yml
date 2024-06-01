@@ -24,7 +24,7 @@ services:
     build: ./
     volumes:
       - type: bind
-        source: "/Users/lucasnoman/Documents/Dev/Codes/FIAP/Fase_1/Tech Challenge Refeito/fast-food"
+        source: ./
         target: /usr/src/app
         # Exclude node_modules from volume
       - type: volume
