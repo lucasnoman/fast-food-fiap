@@ -7,7 +7,7 @@ app
     port: env.PORT,
   })
   .then(() => {
-    console.log('🚀 HTTP Server Running!')
+    console.log(`🚀 HTTP Server Running on PORT: ${env.PORT}!`)
   })
   .catch((error) => {
     console.error("❌ HTTP Server can't start", error)
