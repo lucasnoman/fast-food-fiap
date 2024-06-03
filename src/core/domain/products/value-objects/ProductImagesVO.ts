@@ -1,11 +1,5 @@
 import z from 'zod'
 
-export const productImageSchema = z.array(
-  z.object({
-    id: z.number(),
-    url: z.string().url(),
-    productId: z.number(),
-  })
-)
+export const productImageSchema = z.array(z.string().url())
 
 export type ProductImagesVO = z.infer<typeof productImageSchema>

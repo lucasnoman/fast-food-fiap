@@ -8,4 +8,8 @@ export class ProductService {
   async getProducts(): Promise<Product[]> {
     return this.productRepository.getProducts()
   }
+
+  async createProduct(product: Product): Promise<void> {
+    await this.productRepository.createProduct(product)
+  }
 }

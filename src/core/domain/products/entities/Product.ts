@@ -5,30 +5,30 @@ import {
 } from '../value-objects/ProductImagesVO'
 
 export class Product {
-  private _id: number
+  private _id: number | null
   private _name: string
   private _category: ProductCategory
   private _price: number
   private _description: string | null
-  private _images: ProductImagesVO
+  private _images: ProductImagesVO | null
 
   constructor(
-    id: number,
+    id: number | null,
     name: string,
     category: ProductCategory,
     price: number,
     description: string | null,
-    images: ProductImagesVO
+    images: ProductImagesVO | null
   ) {
     this._id = id
     this._name = name
     this._category = category
     this._price = price
     this._description = description
-    this._images = productImageSchema.parse(images)
+    this._images = productImageSchema.parse(images) ?? null
   }
 
-  public get id(): number {
+  public get id(): number | null {
     return this._id
   }
 
@@ -64,7 +64,7 @@ export class Product {
     this._description = value
   }
 
-  public get images(): ProductImagesVO {
+  public get images(): ProductImagesVO | null {
     return this._images
   }
 

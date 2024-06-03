@@ -6,6 +6,34 @@ import { ProductCategory } from 'src/core/domain/products/value-objects/ProductC
 import { prisma } from '../../config/prisma'
 
 export class ProductRepository implements ProductPort {
+  async createProduct(product: Product): Promise<void> {
+    const imageData = product.images?.map((url) => ({ url })) ?? []
+
+    const productData = {
+      name: product.name,
+      category: product.category,
+      price: product.price,
+      description: product.description ?? null,
+      images: {
+        createMany: {
+          data: imageData,
+        },
+      },
+    }
+
+    try {
+      await prisma.product.create({ data: productData })
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        throw new Error(
+          `Prisma error while creating Product. Code: ${error.code}`
+        )
+      }
+
+      throw error
+    }
+  }
+
   async getProducts(): Promise<Product[]> {
     try {
       const prismaProducts = await prisma.product.findMany({
@@ -14,6 +42,7 @@ export class ProductRepository implements ProductPort {
 
       const listOfProducts = prismaProducts!.map((prismaProduct) => {
         const { id, name, category, price, description, images } = prismaProduct
+        const listOfImages = images.map((image) => image.url)
 
         return new Product(
           id,
@@ -21,14 +50,16 @@ export class ProductRepository implements ProductPort {
           category as ProductCategory,
           price.toNumber(),
           description,
-          images
+          listOfImages
         )
       })
 
       return listOfProducts
     } catch (err) {
       if (err instanceof Prisma.PrismaClientKnownRequestError)
-        console.error(`❌ Prisma error in listing Products. Code: ${err.code}`)
+        console.error(
+          `❌ Prisma error while listing Products. Code: ${err.code}`
+        )
 
       throw err
     }
