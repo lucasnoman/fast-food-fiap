@@ -64,4 +64,45 @@ export class ProductRepository implements ProductPort {
       throw err
     }
   }
+
+  async getProductById(id: number): Promise<Product> {
+    try {
+      const prismaProduct = await prisma.product.findUnique({
+        where: { id },
+        include: { images: true },
+      })
+
+      if (prismaProduct) {
+        const {
+          id: prodId,
+          name,
+          category,
+          price: prismaPrice,
+          description,
+          images,
+        } = prismaProduct || {}
+
+        const price = prismaPrice?.valueOf() || 0
+        const listOfImages = images.map((image) => image.url)
+
+        return new Product(
+          prodId,
+          name,
+          category as ProductCategory,
+          price as number,
+          description,
+          listOfImages
+        )
+      } else {
+        throw new Error('Product not found')
+      }
+    } catch (err) {
+      if (err instanceof Prisma.PrismaClientKnownRequestError)
+        console.error(
+          `❌ Prisma error while listing Products. Code: ${err.code}`
+        )
+
+      throw err
+    }
+  }
 }

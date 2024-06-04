@@ -9,6 +9,10 @@ export class ProductService {
     return this.productRepository.getProducts()
   }
 
+  async getProductById(id: number): Promise<Product> {
+    return this.productRepository.getProductById(id)
+  }
+
   async createProduct(product: Product): Promise<void> {
     await this.productRepository.createProduct(product)
   }

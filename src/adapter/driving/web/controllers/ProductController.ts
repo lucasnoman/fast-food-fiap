@@ -12,6 +12,17 @@ export class ProductController {
     reply.status(201).send(products)
   }
 
+  async getProductById(
+    req: FastifyRequest,
+    reply: FastifyReply
+  ): Promise<void> {
+    const { productId } = z
+      .object({ productId: z.coerce.number() })
+      .parse(req.params)
+    const product = await this.productService.getProductById(productId)
+    reply.status(201).send(product)
+  }
+
   async createProduct(req: FastifyRequest, reply: FastifyReply): Promise<void> {
     // TODO: remover o zod daqui para que não haja dependências no controller
     const createProductSchema = z.object({
