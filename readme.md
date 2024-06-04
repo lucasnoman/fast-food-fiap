@@ -71,81 +71,63 @@ Takes two numbers and returns the sum.
 
 ## Documentation
 
-### Folder structure
+### Folder structure - Hexagonal + DDD
 ```bash
 .
 ├── prisma
 │   ├── migrations
 │   └── schema.prisma
-├── src
-│   ├── adapter
-│   │   ├── driven
-│   │   │   └── infra
-│   │   │       ├── config
-│   │   │       │   └── prisma.ts
-│   │   │       ├── env
-│   │   │       │   └── index.ts
-│   │   │       ├── http
-│   │   │       │   └── app.ts
-│   │   │       ├── repository
-│   │   │       │   └── prisma
-│   │   │       │       └── ProductRepository.ts
-│   │   │       └── routes
-│   │   │           └── ProductRoutes.ts
-│   │   └── driving
-│   │       └── web
-│   │           └── controllers
-│   │               └── ProductController.ts
-│   ├── core
-│   │   ├── application
-│   │   │   ├── ports
-│   │   │   │   └── ProductPort.ts
-│   │   │   └── services
-│   │   │       └── ProductService.ts
-│   │   └── domain
-│   │       ├── confection
-│   │       │   ├── entities
-│   │       │   ├── events
-│   │       │   ├── services
-│   │       │   └── value-objects
-│   │       ├── customer
-│   │       │   ├── entities
-│   │       │   ├── events
-│   │       │   ├── services
-│   │       │   └── value-objects
-│   │       ├── delivery
-│   │       │   ├── entities
-│   │       │   ├── events
-│   │       │   ├── services
-│   │       │   └── value-objects
-│   │       ├── order
-│   │       │   ├── entities
-│   │       │   ├── events
-│   │       │   ├── services
-│   │       │   └── value-objects
-│   │       ├── payment
-│   │       │   ├── entities
-│   │       │   ├── events
-│   │       │   ├── services
-│   │       │   └── value-objects
-│   │       └── products
-│   │           ├── entities
-│   │           │   └── Product.ts
-│   │           ├── events
-│   │           ├── services
-│   │           └── value-objects
-│   │               ├── ProductCategoryVO.ts
-│   │               └── ProductImagesVO.ts
-│   ├── server.ts
-│   ├── shared
-│   └── tests
-├── readme.md
-├── Dockerfile
-├── docker-compose.yml
-├── eslint.config.mjs
-├── package.json
-├── pnpm-lock.yaml
-└── tsconfig.json
+└── src
+    ├── adapter
+    │   ├── driven
+    │   │   └── infra
+    │   │       ├── config
+    │   │       ├── env
+    │   │       ├── http
+    │   │       ├── repository
+    │   │       │   ├── prisma
+    │   │       │   └── memory
+    │   │       └── routes
+    │   └── driving
+    │       └── web
+    │           └── controllers
+    ├── core
+    │   ├── application
+    │   │   ├── ports
+    │   │   └── services
+    │   └── domain
+    │       ├── confection
+    │       │   ├── entities
+    │       │   ├── events
+    │       │   ├── services
+    │       │   └── value-objects
+    │       ├── customer
+    │       │   ├── entities
+    │       │   ├── events
+    │       │   ├── services
+    │       │   └── value-objects
+    │       ├── delivery
+    │       │   ├── entities
+    │       │   ├── events
+    │       │   ├── services
+    │       │   └── value-objects
+    │       ├── order
+    │       │   ├── entities
+    │       │   ├── events
+    │       │   ├── services
+    │       │   └── value-objects
+    │       ├── payment
+    │       │   ├── entities
+    │       │   ├── events
+    │       │   ├── services
+    │       │   └── value-objects
+    │       └── products
+    │           ├── entities
+    │           ├── events
+    │           ├── services
+    │           └── value-objects
+    ├── shared
+    └── tests
 ````
 
 ---
