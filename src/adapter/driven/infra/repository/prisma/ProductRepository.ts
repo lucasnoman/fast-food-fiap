@@ -25,9 +25,7 @@ export class ProductRepository implements ProductPort {
       await prisma.product.create({ data: productData })
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        throw new Error(
-          `Prisma error while creating Product. Code: ${error.code}`
-        )
+        throw new Error(`Prisma error while creating Product. Code: ${error.code}`)
       }
 
       throw error
@@ -44,22 +42,13 @@ export class ProductRepository implements ProductPort {
         const { id, name, category, price, description, images } = prismaProduct
         const listOfImages = images.map((image) => image.url)
 
-        return new Product(
-          id,
-          name,
-          category as ProductCategory,
-          price.toNumber(),
-          description,
-          listOfImages
-        )
+        return new Product(id, name, category as ProductCategory, price.toNumber(), description, listOfImages)
       })
 
       return listOfProducts
     } catch (err) {
       if (err instanceof Prisma.PrismaClientKnownRequestError)
-        console.error(
-          `❌ Prisma error while listing Products. Code: ${err.code}`
-        )
+        console.error(`❌ Prisma error while listing Products. Code: ${err.code}`)
 
       throw err
     }
@@ -73,34 +62,18 @@ export class ProductRepository implements ProductPort {
       })
 
       if (prismaProduct) {
-        const {
-          id: prodId,
-          name,
-          category,
-          price: prismaPrice,
-          description,
-          images,
-        } = prismaProduct || {}
+        const { id: prodId, name, category, price: prismaPrice, description, images } = prismaProduct || {}
 
         const price = prismaPrice?.valueOf() || 0
         const listOfImages = images.map((image) => image.url)
 
-        return new Product(
-          prodId,
-          name,
-          category as ProductCategory,
-          price as number,
-          description,
-          listOfImages
-        )
+        return new Product(prodId, name, category as ProductCategory, price as number, description, listOfImages)
       } else {
         throw new Error('Product not found')
       }
     } catch (err) {
       if (err instanceof Prisma.PrismaClientKnownRequestError)
-        console.error(
-          `❌ Prisma error while listing Products. Code: ${err.code}`
-        )
+        console.error(`❌ Prisma error while listing Products. Code: ${err.code}`)
 
       throw err
     }

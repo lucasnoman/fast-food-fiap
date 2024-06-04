@@ -12,13 +12,8 @@ export class ProductController {
     reply.status(201).send(products)
   }
 
-  async getProductById(
-    req: FastifyRequest,
-    reply: FastifyReply
-  ): Promise<void> {
-    const { productId } = z
-      .object({ productId: z.coerce.number() })
-      .parse(req.params)
+  async getProductById(req: FastifyRequest, reply: FastifyReply): Promise<void> {
+    const { productId } = z.object({ productId: z.coerce.number() }).parse(req.params)
     const product = await this.productService.getProductById(productId)
     reply.status(201).send(product)
   }
@@ -33,17 +28,9 @@ export class ProductController {
       images: z.array(z.string()).nullable(),
     })
 
-    const { name, category, price, description, images } =
-      createProductSchema.parse(req.body)
+    const { name, category, price, description, images } = createProductSchema.parse(req.body)
 
-    const product = new Product(
-      null,
-      name,
-      category,
-      price,
-      description,
-      images
-    )
+    const product = new Product(null, name, category, price, description, images)
     await this.productService.createProduct(product)
     reply.status(201).send()
   }
