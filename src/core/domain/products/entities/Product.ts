@@ -1,5 +1,5 @@
-import { ProductCategory } from '../value-objects/ProductCategoryVO'
-import { productImageSchema, ProductImagesVO } from '../value-objects/ProductImagesVO'
+import { ProductCategory } from '../value-objects/CategoryVO'
+import { productImageSchema, ProductImagesVO } from '../value-objects/ImagesVO'
 
 export class Product {
   private _id: number | null

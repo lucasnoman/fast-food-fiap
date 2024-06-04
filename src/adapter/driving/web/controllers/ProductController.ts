@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { ProductPort } from 'src/core/application/ports/ProductPort'
 import { Product } from 'src/core/domain/products/entities/Product'
-import { ProductCategory } from 'src/core/domain/products/value-objects/ProductCategoryVO'
+import { ProductCategory } from 'src/core/domain/products/value-objects/CategoryVO'
 import z from 'zod'
 
 export class ProductController {
