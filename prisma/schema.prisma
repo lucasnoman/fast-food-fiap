@@ -17,7 +17,7 @@ model Product {
   id          Int     @id @default(autoincrement())
   name        String
   category    String
-  price       Decimal
+  price       Decimal @db.Money
   description String?
 
   images ProductImage[]
@@ -33,4 +33,12 @@ model ProductImage {
   productId Int     @map("product_id")
 
   @@map("product_image")
+}
+
+model Customer {
+  id   Int     @id @default(autoincrement())
+  name String
+  cpf  String? @db.VarChar(11)
+
+  @@map("customer")
 }
