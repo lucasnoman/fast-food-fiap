@@ -1,4 +1,3 @@
-import { Prisma } from '@prisma/client'
 import { Product } from 'src/core/domain/products/entities/Product'
 import { ProductCategory } from 'src/core/domain/products/value-objects/CategoryVO'
 
@@ -11,9 +10,7 @@ export class ProductService {
     try {
       await this.productRepository.createProduct(product)
     } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        throw new Error(`❌ Prisma error while creating Product. Code: ${error.code}`)
-      }
+      console.error(`❌ Prisma error while creating Product. Code: ${error}`)
       throw error
     }
   }
@@ -30,11 +27,9 @@ export class ProductService {
       })
 
       return listOfProducts
-    } catch (err) {
-      if (err instanceof Prisma.PrismaClientKnownRequestError) {
-        console.error(`❌ Prisma error while listing Products. Code: ${err.code}`)
-      }
-      throw err
+    } catch (error) {
+      console.error(`❌ Prisma error while listing Products. Code: ${error}`)
+      throw error
     }
   }
 
@@ -52,12 +47,9 @@ export class ProductService {
       } else {
         throw new Error('Product not found')
       }
-    } catch (err) {
-      if (err instanceof Prisma.PrismaClientKnownRequestError) {
-        console.error(`❌ Prisma error while listing Products. Code: ${err.code}`)
-      }
-
-      throw err
+    } catch (error) {
+      console.error(`❌ Prisma error while listing Products. Code: ${error}`)
+      throw error
     }
   }
 }
