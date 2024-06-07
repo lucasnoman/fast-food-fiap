@@ -1,9 +1,9 @@
-import { CustomerPort } from 'src/core/application/ports/CustomerPort'
+import { CustomerPrismaPort } from 'src/core/application/ports/CustomerPrismaPort'
 import { Customer } from 'src/core/domain/customer/entities/Customer'
 
 import { prisma } from '../../config/prisma'
 
-export class CustomerRepository implements CustomerPort {
+export class CustomerRepository implements CustomerPrismaPort {
   async createCustomer(customer: Customer): Promise<void> {
     await prisma.customer.create({
       data: {

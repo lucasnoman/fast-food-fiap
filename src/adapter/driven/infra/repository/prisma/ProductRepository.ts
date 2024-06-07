@@ -1,10 +1,10 @@
 import { Product as PrismaProduct, ProductImage } from '@prisma/client'
-import { ProductPort } from 'src/core/application/ports/ProductPort'
+import { ProductPrismaPort } from 'src/core/application/ports/ProductPrismaPort'
 import { Product } from 'src/core/domain/products/entities/Product'
 
 import { prisma } from '../../config/prisma'
 
-export class ProductRepository implements ProductPort {
+export class ProductRepository implements ProductPrismaPort {
   async createProduct(product: Product): Promise<void> {
     const imageData = product.images?.map((url) => ({ url })) ?? []
 

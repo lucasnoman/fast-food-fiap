@@ -1,10 +1,10 @@
 import { Product } from 'src/core/domain/products/entities/Product'
 import { ProductCategory } from 'src/core/domain/products/value-objects/CategoryVO'
 
-import { ProductPort } from '../ports/ProductPort'
+import { ProductPrismaPort } from '../ports/ProductPrismaPort'
 
 export class ProductService {
-  constructor(private readonly productRepository: ProductPort) {}
+  constructor(private readonly productRepository: ProductPrismaPort) {}
 
   async createProduct(product: Product): Promise<void> {
     try {

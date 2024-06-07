@@ -1,9 +1,9 @@
 import { Customer } from 'src/core/domain/customer/entities/Customer'
 
-import { CustomerPort } from '../ports/CustomerPort'
+import { CustomerPrismaPort } from '../ports/CustomerPrismaPort'
 
 export class CustomerService {
-  constructor(private readonly customerRepository: CustomerPort) {}
+  constructor(private readonly customerRepository: CustomerPrismaPort) {}
 
   async createCustomer(customer: Customer): Promise<void> {
     try {

@@ -1,11 +1,11 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { CustomerPort } from 'src/core/application/ports/CustomerPort'
+import { CustomerServicePort } from 'src/core/application/ports/CustomerServicePort'
 import { Customer } from 'src/core/domain/customer/entities/Customer'
 import { cpfSchema } from 'src/core/domain/customer/value-objects/CpfVO'
 import z from 'zod'
 
 export class CustomerController {
-  constructor(private readonly customerService: CustomerPort) {}
+  constructor(private readonly customerService: CustomerServicePort) {}
 
   async createCustomer(req: FastifyRequest, reply: FastifyReply): Promise<void> {
     const createCustomerSchema = z.object({
@@ -22,6 +22,6 @@ export class CustomerController {
   async getCustomerByCpf(req: FastifyRequest, reply: FastifyReply): Promise<void> {
     const { cpf } = z.object({ cpf: z.string() }).parse(req.params)
     const customer = await this.customerService.getCustomerByCpf(cpf)
-    reply.status(201).send(customer)
+    reply.status(200).send(customer)
   }
 }

@@ -1,21 +1,21 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { ProductPort } from 'src/core/application/ports/ProductPort'
+import { ProductServicePort } from 'src/core/application/ports/ProductServicePort'
 import { Product } from 'src/core/domain/products/entities/Product'
 import { ProductCategory } from 'src/core/domain/products/value-objects/CategoryVO'
 import z from 'zod'
 
 export class ProductController {
-  constructor(private readonly productService: ProductPort) {}
+  constructor(private readonly productService: ProductServicePort) {}
 
   async getProducts(req: FastifyRequest, reply: FastifyReply): Promise<void> {
     const products = await this.productService.getProducts()
-    reply.status(201).send(products)
+    reply.status(200).send(products)
   }
 
   async getProductById(req: FastifyRequest, reply: FastifyReply): Promise<void> {
     const { productId } = z.object({ productId: z.coerce.number() }).parse(req.params)
     const product = await this.productService.getProductById(productId)
-    reply.status(201).send(product)
+    reply.status(200).send(product)
   }
 
   async createProduct(req: FastifyRequest, reply: FastifyReply): Promise<void> {
