@@ -18,4 +18,5 @@ export async function productsRoutes(app: FastifyInstance) {
   app.get('/product/:productId', productController.getProductById.bind(productController))
   app.post('/product', productController.createProduct.bind(productController))
   app.delete('/product/:productId', productController.removeProduct.bind(productController))
+  app.put('/product/:productId', productController.updateProduct.bind(productController))
 }

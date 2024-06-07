@@ -5,4 +5,5 @@ export interface ProductServicePort {
   createProduct(product: Product): Promise<void>
   getProductById(id: number): Promise<Product>
   removeProduct(id: number): Promise<void>
+  updateProduct(product: Product): Promise<void>
 }

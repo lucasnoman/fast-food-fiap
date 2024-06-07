@@ -43,4 +43,33 @@ export class ProductRepository implements ProductPrismaPort {
   async removeProduct(id: number): Promise<void> {
     await prisma.product.delete({ where: { id }, include: { images: true } })
   }
+
+  async updateProduct(product: Product): Promise<void> {
+    const imageData = product.images?.map((url) => ({ url })) ?? []
+
+    const existingProduct = await prisma.product.findUnique({
+      where: {
+        id: product.id ?? 0,
+      },
+    })
+
+    if (!existingProduct) {
+      throw new Error('❌ Product not found')
+    }
+
+    await prisma.product.update({
+      where: { id: product?.id ?? 0 },
+      data: {
+        name: product.name,
+        category: product.category,
+        price: product.price,
+        description: product.description ?? null,
+        images: {
+          createMany: {
+            data: imageData,
+          },
+        },
+      },
+    })
+  }
 }

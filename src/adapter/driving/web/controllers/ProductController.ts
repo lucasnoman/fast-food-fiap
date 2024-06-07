@@ -40,4 +40,20 @@ export class ProductController {
     await this.productService.removeProduct(productId)
     reply.status(204).send()
   }
+
+  async updateProduct(req: FastifyRequest, reply: FastifyReply): Promise<void> {
+    const { productId } = z.object({ productId: z.coerce.number() }).parse(req.params)
+    const updateProductSchema = z.object({
+      name: z.string(),
+      category: z.nativeEnum(ProductCategory),
+      price: z.number(),
+      description: z.string().nullable(),
+      images: z.array(z.string()).nullable(),
+    })
+    const { name, category, price, description, images } = updateProductSchema.parse(req.body)
+
+    const product = new Product(productId, name, category, price, description, images)
+    await this.productService.updateProduct(product)
+    reply.status(204).send()
+  }
 }
