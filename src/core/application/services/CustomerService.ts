@@ -13,4 +13,8 @@ export class CustomerService {
       throw error
     }
   }
+
+  async getCustomerByCpf(cpf: string): Promise<Customer> {
+    return this.customerRepository.getCustomerByCpf(cpf)
+  }
 }

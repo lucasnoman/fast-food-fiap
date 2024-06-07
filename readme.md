@@ -152,3 +152,13 @@ services:
       service_name:
         condition: service_healthy
 ```
+
+---
+
+### Problemas
+
+`Cannot read properties of undefined (reading 'create')`
+
+**Para esse problema:** `docker compose down -v && docker compose up`
+
+Isso removerá todo o volume e qualquer dado possivelmente corrompido. Também removerá os os dados salvos no BD.

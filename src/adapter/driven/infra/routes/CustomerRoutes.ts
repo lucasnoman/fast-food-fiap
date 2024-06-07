@@ -10,4 +10,5 @@ export async function customerRoutes(app: FastifyInstance) {
   const customerController = new CustomerController(customerService)
 
   app.post('/customer', customerController.createCustomer.bind(customerController))
+  app.get('/customer/:cpf', customerController.getCustomerByCpf.bind(customerController))
 }

@@ -8,8 +8,19 @@ export class CustomerRepository implements CustomerPort {
     await prisma.customer.create({
       data: {
         name: customer.name,
-        cpf: customer.cpf || null,
+        cpf: customer.cpf,
       },
     })
+  }
+
+  async getCustomerByCpf(cpf: string): Promise<Customer> {
+    const customer = await prisma.customer.findFirst({ where: { cpf } })
+
+    if (customer) {
+      const foundCustomer = new Customer(customer.id, customer.name, customer.cpf)
+      return foundCustomer
+    } else {
+      throw new Error('❌ Customer not found')
+    }
   }
 }

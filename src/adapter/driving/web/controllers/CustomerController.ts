@@ -18,4 +18,10 @@ export class CustomerController {
     await this.customerService.createCustomer(customer)
     reply.status(201).send()
   }
+
+  async getCustomerByCpf(req: FastifyRequest, reply: FastifyReply): Promise<void> {
+    const { cpf } = z.object({ cpf: z.string() }).parse(req.params)
+    const customer = await this.customerService.getCustomerByCpf(cpf)
+    reply.status(201).send(customer)
+  }
 }
