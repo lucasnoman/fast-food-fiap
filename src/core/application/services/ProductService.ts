@@ -52,4 +52,12 @@ export class ProductService {
       throw error
     }
   }
+
+  async removeProduct(id: number): Promise<void> {
+    try {
+      await this.productRepository.removeProduct(id)
+    } catch (error) {
+      console.error(`❌ Prisma error while removing Product. Code: ${error}`)
+    }
+  }
 }

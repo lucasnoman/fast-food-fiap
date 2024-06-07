@@ -39,4 +39,8 @@ export class ProductRepository implements ProductPrismaPort {
 
     return prismaProduct
   }
+
+  async removeProduct(id: number): Promise<void> {
+    await prisma.product.delete({ where: { id }, include: { images: true } })
+  }
 }

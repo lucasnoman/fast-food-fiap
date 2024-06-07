@@ -4,4 +4,5 @@ export interface ProductServicePort {
   getProducts(): Promise<Product[]>
   createProduct(product: Product): Promise<void>
   getProductById(id: number): Promise<Product>
+  removeProduct(id: number): Promise<void>
 }

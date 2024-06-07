@@ -5,4 +5,5 @@ export interface ProductPrismaPort {
   getProducts(): Promise<(PrismaProduct & { images: ProductImage[] })[]>
   createProduct(product: Product): Promise<void>
   getProductById(id: number): Promise<PrismaProduct & { images: ProductImage[] }>
+  removeProduct(id: number): Promise<void>
 }

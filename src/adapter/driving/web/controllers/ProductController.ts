@@ -34,4 +34,10 @@ export class ProductController {
     await this.productService.createProduct(product)
     reply.status(201).send()
   }
+
+  async removeProduct(req: FastifyRequest, reply: FastifyReply): Promise<void> {
+    const { productId } = z.object({ productId: z.coerce.number() }).parse(req.params)
+    await this.productService.removeProduct(productId)
+    reply.status(204).send()
+  }
 }
