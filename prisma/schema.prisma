@@ -20,7 +20,8 @@ model Product {
   price       Decimal @db.Money
   description String?
 
-  images ProductImage[]
+  images        ProductImage[]
+  comboProducts ComboProducts[]
 
   @@map("product")
 }
@@ -40,5 +41,43 @@ model Customer {
   name String
   cpf  String? @unique @db.VarChar(11)
 
+  order Order[]
+
   @@map("customer")
+}
+
+model Order {
+  id            Int      @id @default(autoincrement())
+  status        String   @default("Recebido")
+  paymentStatus String   @map("payment_status")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  customer   Customer? @relation(fields: [customerId], references: [id])
+  customerId Int?      @map("customer_id")
+
+  combo Combo[]
+
+  @@map("order")
+}
+
+model Combo {
+  id Int @id @default(autoincrement())
+
+  order         Order?          @relation(fields: [orderId], references: [id])
+  orderId       Int?            @map("order_id")
+  comboProducts ComboProducts[]
+
+  @@map("combo")
+}
+
+model ComboProducts {
+  createdAt DateTime @default(now()) @map("created_at")
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int     @map("product_id")
+  combo     Combo   @relation(fields: [comboId], references: [id])
+  comboId   Int     @map("combo_id")
+
+  @@id([productId, comboId])
+  @@map("combo_products")
 }

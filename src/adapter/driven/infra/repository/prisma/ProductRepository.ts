@@ -44,6 +44,7 @@ export class ProductRepository implements ProductPrismaPort {
     await prisma.product.delete({ where: { id }, include: { images: true } })
   }
 
+  // TODO remover as imagens cadastradas anteriormente para o produto, mantendo apenas a nova
   async updateProduct(product: Product): Promise<void> {
     const imageData = product.images?.map((url) => ({ url })) ?? []
 
